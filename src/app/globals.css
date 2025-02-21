@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .flex-col-between {
+    @apply flex flex-col justify-between;
+  }
+
+  .flex-center-rounded {
+    @apply flex items-center rounded-md;
+  }
+
+  .auth-layout {
+    @apply flex-center min-h-screen bg-blue-50 font-inter;
+  }
+
+  .auth-card {
+    @apply m-5 w-full space-y-8 rounded-xl bg-white p-5 shadow-lg sm:p-10;
+  }
+
+  .auth-link {
+    @apply cursor-pointer font-medium hover:underline;
+  }
+
+  .auth-icon {
+    @apply mx-auto h-14 w-14;
+  }
+
+  .form-btn {
+    @apply w-full rounded-lg bg-blue-600 font-semibold text-white hover:bg-blue-700;
+  }
+
+  .form-message {
+    @apply flex items-center gap-2 rounded-md p-3 text-sm;
+  }
+
+  .mobile-sidebar {
+    @apply flex-between h-16 border-b bg-gray-50 p-5 md:hidden;
+  }
+
+  .root-container {
+    @apply h-screen w-full overflow-y-scroll p-6 md:p-8 xl:p-12;
+  }
+
+  .sidenav {
+    @apply flex-col-between h-screen border-r bg-gray-50 p-4 max-md:hidden xl:w-[350px];
+  }
+
+  .mobilenav {
+    @apply flex-col-between h-[calc(100vh-64px)];
+  }
+
+  .mobile-app-logo {
+    @apply flex cursor-pointer items-center justify-start gap-3;
+  }
+
+  .app-logo {
+    @apply mb-12 max-xl:justify-center;
+  }
+
+  .app-name {
+    @apply text-xl font-semibold text-gray-900 xl:text-2xl;
+  }
+
+  .footer {
+    @apply flex-between border-t-2 py-5;
+  }
+
+  .footer-icon {
+    @apply flex-center h-10 w-10 rounded-full bg-gray-200;
+  }
+
+  .footer-div {
+    @apply flex items-center gap-2;
+  }
+
+  .footer-name {
+    @apply max-w-[160px] truncate text-sm font-semibold text-gray-700;
+  }
+
+  .footer-email {
+    @apply max-w-[160px] truncate text-sm font-normal text-gray-600;
+  }
+
+  .workshop-header {
+    @apply gap-1 text-start text-2xl text-gray-900 md:text-3xl;
+  }
+
+  .search-input {
+    @apply block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-none placeholder:text-gray-500 focus:border-blue-300 focus:ring-1 focus:ring-blue-300;
+  }
+
+  .search-icon {
+    @apply absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500;
+  }
+
+  .base-btn {
+    @apply flex-center h-10 rounded-md px-4 py-2 text-sm font-medium transition-colors;
+  }
+
+  .green-btn {
+    @apply base-btn bg-green-700 text-white hover:bg-green-800;
+  }
+
+  .edit-workshop-btn {
+    @apply base-btn gap-2 border hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .workshop-grid {
+    @apply mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-6 rounded-lg bg-gray-50 p-4 md:grid-cols-2 md:p-6 xl:grid-cols-3 xl:p-8;
+  }
+
+  .workshop-card {
+    @apply h-full cursor-pointer rounded-lg shadow-md transition-shadow duration-300 hover:shadow-lg;
+  }
+
+  .workshop-section {
+    @apply mb-3 text-xl font-semibold text-blue-600;
+  }
+
+  .workshop-info {
+    @apply flex items-center text-gray-600;
+  }
+
+  .workshop-icon {
+    @apply mr-2 h-5 w-5 text-blue-500;
+  }
+}
