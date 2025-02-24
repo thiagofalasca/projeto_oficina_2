@@ -4,7 +4,7 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import { generateVerificationToken } from '@/actions/tokenAction';
-import { signInInput, signInSchema } from '@/validations/auth';
+import { signInInput, signInSchema } from '@/lib/validations/user';
 import { getUserByEmail } from '../userActions';
 import { sendVerificationEmail } from '@/lib/mail';
 

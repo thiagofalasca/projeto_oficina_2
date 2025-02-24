@@ -1,6 +1,6 @@
 import type { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { signInSchema } from '@/validations/auth';
+import { signInSchema } from '@/validations/user';
 import { getUserByEmail } from '@/actions/userActions';
 import bcrypt from 'bcryptjs';
 

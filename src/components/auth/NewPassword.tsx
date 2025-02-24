@@ -1,6 +1,6 @@
 'use client';
 
-import { newPasswordSchema, newPasswordInput } from '@/validations/auth';
+import { newPasswordSchema, newPasswordInput } from '@/lib/validations/user';
 import React, { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

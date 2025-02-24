@@ -1,6 +1,11 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { courses, states, workshopStatus } from '@/lib/constants';
+import {
+  courses,
+  departmentsName,
+  states,
+  workshopStatus,
+} from '@/lib/constants';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -49,6 +54,13 @@ export const getStatusOptions = () => {
   return workshopStatus.map((status) => ({
     value: status,
     label: status,
+  }));
+};
+
+export const getDepartmentOptions = () => {
+  return departmentsName.map((department) => ({
+    value: department,
+    label: department,
   }));
 };
 

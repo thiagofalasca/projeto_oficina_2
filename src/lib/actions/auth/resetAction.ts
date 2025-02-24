@@ -2,7 +2,7 @@
 
 import { sendPasswordResetEmail } from '../../mail';
 import { generatePasswordResetToken } from '@/actions/tokenAction';
-import { resetInput, resetSchema } from '../../validations/auth';
+import { resetInput, resetSchema } from '../../validations/user';
 import { getUserByEmail } from '../userActions';
 import { redirect } from 'next/navigation';
 import { expirePath } from 'next/cache';

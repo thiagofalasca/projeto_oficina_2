@@ -1,7 +1,6 @@
 'use server';
 
 import { db } from '@/db';
-import {} from '../auth/authActions';
 import { workshopEnrollments, workshops } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';

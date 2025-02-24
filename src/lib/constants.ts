@@ -45,6 +45,12 @@ export const courses = [
 export const ROLES = ['user', 'admin', 'superadmin'] as const;
 export type Role = (typeof ROLES)[number];
 
+export const roleStyles = {
+  user: 'bg-gray-100 text-gray-800 border-gray-300',
+  admin: 'bg-blue-100 text-blue-800 border-blue-300',
+  superadmin: 'bg-green-100 text-green-800 border-green-300',
+} as const;
+
 export const iconMap = {
   wrench: WrenchScrewdriverIcon,
   document: DocumentCheckIcon,
@@ -109,6 +115,7 @@ export const workshopStatusStyles = {
 
 export const WORKSHOPS_PER_PAGE = 6;
 export const ENROLLMENTS_PER_PAGE = 10;
+export const USERS_PER_PAGE = 10;
 
 export const departmentsName = [
   'DACOM',

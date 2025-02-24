@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpForm from '@/components/auth/SignUpForm';
+import UserForm from '@/components/UserForm';
 import HeaderBox from '@/components/HeaderBox';
 import AuthFooter from '@/components/auth/AuthFooter';
 import { Metadata } from 'next';
@@ -12,7 +12,7 @@ const SignUpPage = () => {
   return (
     <section className="auth-card max-w-2xl">
       <HeaderBox title="Criar Conta" subText="Por favor, preencha seus dados" />
-      <SignUpForm />
+      <UserForm />
       <AuthFooter
         description="Já tem uma conta?"
         link="/auth/sign-in"

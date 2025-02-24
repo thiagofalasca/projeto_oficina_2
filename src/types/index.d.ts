@@ -86,7 +86,19 @@ declare type Professor = {
   departmentId: string;
 };
 
+declare type StudentUser = User & {
+  ra: string;
+  courseId: string;
+  currentPeriod: number;
+};
+
+declare type ProfessorUser = User & {
+  departmentId: string;
+};
+
 declare type ProfessorOption = {
   value: string;
   label: string;
 };
+
+declare type UserFormData = userInput | adminInput | superAdminInput;

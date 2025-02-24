@@ -217,5 +217,5 @@ export const fetchWorkshopById = async (id: string): Promise<Workshop> => {
   const hasAccess = await validateWorkshopAccess(result?.id);
   if (!hasAccess) redirect('/workshops');
 
-  return result!;
+  return result;
 };
