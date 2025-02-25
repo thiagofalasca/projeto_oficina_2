@@ -8,6 +8,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { workshopEnrollments, students, users, professors } from '@/db/schema';
 import { formatDate } from '@/lib/utils';
+import path from 'path';
 
 export async function downloadCertificate(certificate: Certificate) {
   const user = await getCurrentUser();
