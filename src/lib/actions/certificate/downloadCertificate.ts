@@ -8,7 +8,11 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { workshopEnrollments, students, users, professors } from '@/db/schema';
 import { formatDate } from '@/lib/utils';
-import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export async function downloadCertificate(certificate: Certificate) {
   const user = await getCurrentUser();
@@ -29,12 +33,7 @@ export async function downloadCertificate(certificate: Certificate) {
     .where(eq(users.id, certificate.signedBy.id))
     .then((res) => res[0]);
 
-  const templatePath = path.join(
-    process.cwd(),
-    'src',
-    'templates',
-    'certificateModel.pdf'
-  );
+    const templatePath = join(__dirname, 'template', 'certificateModel.pdf');
 
   const templateBytes = await readFile(templatePath);
   const pdfDoc = await PDFDocument.load(templateBytes);
