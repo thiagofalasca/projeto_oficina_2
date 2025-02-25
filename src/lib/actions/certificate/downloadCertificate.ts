@@ -12,7 +12,7 @@ import { join } from 'path';
 
 // Função para obter o caminho do diretório onde o template deve estar
 const getTemplatesPath = (): string => {
-  return join(process.cwd(), 'public');
+  return join(process.cwd(), '/src/lib/template/certificateModel.pdf');
 };
 
 const touched = { current: false };
@@ -46,7 +46,7 @@ export async function downloadCertificate(certificate: Certificate) {
     .then((res) => res[0]);
 
   // Caminho atualizado para o template do certificado
-  const templatePath = join(getTemplatesPath(), 'certificateModel.pdf');
+  const templatePath = getTemplatesPath();
 
   // Lendo o arquivo PDF do template
   const templateBytes = await fs.readFile(templatePath);
