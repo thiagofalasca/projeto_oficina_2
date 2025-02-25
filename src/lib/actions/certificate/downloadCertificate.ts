@@ -2,7 +2,6 @@
 
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { getCurrentUser } from '../auth/authActions';
-import path from 'path';
 import { readFile } from 'fs/promises';
 import { redirect } from 'next/navigation';
 import { eq } from 'drizzle-orm';
