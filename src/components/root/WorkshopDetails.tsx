@@ -12,6 +12,7 @@ import {
 import {
   DeleteWorkshopButton,
   EditWorkshopButton,
+  FinishWorkshopButton,
 } from '@/components/root/WorkshopButtons';
 import { CancelEnrollmentButton } from '@/components/root/EnrollmentButtons';
 
@@ -87,6 +88,9 @@ const WorkshopDetails = ({
         <div className="flex gap-4">
           <EditWorkshopButton id={workshop.id} />
           <DeleteWorkshopButton id={workshop.id} />
+          {workshop.status === 'Ativo' && (
+            <FinishWorkshopButton id={workshop.id} />
+          )}
         </div>
       )}
     </div>

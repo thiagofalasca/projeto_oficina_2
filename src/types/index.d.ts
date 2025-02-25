@@ -101,4 +101,18 @@ declare type ProfessorOption = {
   label: string;
 };
 
+declare type Certificate = {
+  id: string;
+  enrollmentId: string;
+  certificateNumber: string;
+  workshopName: string;
+  startDate: string;
+  endDate: string;
+  issuedDate: string;
+  signedBy: {
+    id: string;
+    name: string;
+  };
+};
+
 declare type UserFormData = userInput | adminInput | superAdminInput;

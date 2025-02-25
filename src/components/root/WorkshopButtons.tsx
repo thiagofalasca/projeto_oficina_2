@@ -1,8 +1,14 @@
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import {
+  CheckIcon,
+  PencilIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { deleteWorkshop } from '@/actions/workshop/deleteWorkshopAtcion';
 import ConfirmationDialog from '../ConfirmationDialog';
+import { finishWorkshop } from '@/lib/actions/workshop/finishWorkshopAction';
 
 export const CreateWorkshopButton = () => {
   return (
@@ -38,6 +44,26 @@ export const DeleteWorkshopButton = ({ id }: { id: string }) => {
       onConfirm={deleteWorkshopWithId}
       confirmText="Deletar"
       loadingText="Deletando..."
+    />
+  );
+};
+
+export const FinishWorkshopButton = ({ id }: { id: string }) => {
+  const finishWorkshopWithId = finishWorkshop.bind(null, id);
+
+  return (
+    <ConfirmationDialog
+      trigger={
+        <Button variant="outline">
+          <CheckIcon className="mr-2 h-4 w-4" />
+          Finalizar
+        </Button>
+      }
+      title="Você tem certeza?"
+      description="Esta ação não pode ser desfeita. Isso marcará o workshop como 'Completo' e gerará certificados para todos os participantes."
+      onConfirm={finishWorkshopWithId}
+      confirmText="Finalizar"
+      loadingText="Gerando certificados..."
     />
   );
 };

@@ -190,14 +190,13 @@ export const certificates = pgTable('certificates', {
       onUpdate: 'cascade',
     }),
   certificateNumber: text('certificate_number').notNull().unique(),
-  issuedDate: timestamp('issued_date').notNull().defaultNow(),
+  issuedDate: date('issued_date').notNull(),
   signedBy: text('signed_by')
     .notNull()
     .references(() => professors.id, {
       onDelete: 'restrict',
       onUpdate: 'cascade',
     }),
-  pdf_url: text('pdf_url'),
 });
 
 export const usersRelations = relations(users, ({ one }) => ({
