@@ -31,6 +31,7 @@ export async function downloadCertificate(certificate: Certificate) {
 
   const templatePath = path.join(
     process.cwd(),
+    'public',
     'templates',
     'certificateModel.pdf'
   );
