@@ -44,10 +44,3 @@ next-env.d.ts
 
 # testing
 /coverage
-
-# Fixing
-.github
-/__tests__
-/__tests-e2e__
-playwright.config.ts
-vitest.config.mts
