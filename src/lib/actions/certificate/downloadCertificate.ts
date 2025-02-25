@@ -29,11 +29,7 @@ export async function downloadCertificate(certificate: Certificate) {
     .where(eq(users.id, certificate.signedBy.id))
     .then((res) => res[0]);
 
-  const templatePath = path.join(
-    process.cwd(),
-    'templates',
-    'certificateModel.pdf'
-  );
+  const templatePath = "/var/task/templates/certificateModel.pdf";
 
   const templateBytes = await readFile(templatePath);
   const pdfDoc = await PDFDocument.load(templateBytes);
