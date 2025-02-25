@@ -2,17 +2,13 @@
 
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { getCurrentUser } from '../auth/authActions';
-import { readFile } from 'fs/promises';
+import path from 'path';
+import { promises as fs } from 'fs';
 import { redirect } from 'next/navigation';
 import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { workshopEnrollments, students, users, professors } from '@/db/schema';
 import { formatDate } from '@/lib/utils';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export async function downloadCertificate(certificate: Certificate) {
   const user = await getCurrentUser();
@@ -33,9 +29,9 @@ export async function downloadCertificate(certificate: Certificate) {
     .where(eq(users.id, certificate.signedBy.id))
     .then((res) => res[0]);
 
-    const templatePath = join(__dirname, 'template', 'certificateModel.pdf');
-
-  const templateBytes = await readFile(templatePath);
+  const templateBytes = await fs.readFile(
+    process.cwd() + '/public/certificateModel.pdf'
+  );
   const pdfDoc = await PDFDocument.load(templateBytes);
 
   const page = pdfDoc.getPages()[0];
