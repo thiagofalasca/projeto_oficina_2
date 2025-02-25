@@ -41,20 +41,36 @@ const WorkshopPageWrapper = async ({
     totalPages = await fetchAvailableWorkshopsPages(query);
   }
 
-  const toastMessage = (() => {
-    if (resolvedSearchParams?.created === 'true')
-      return 'Workshop criado com sucesso!';
-    if (resolvedSearchParams?.updated === 'true')
-      return 'Workshop atualizado com sucesso!';
-    if (resolvedSearchParams?.deleted === 'true')
-      return 'Workshop deletado com sucesso!';
-    return '';
-  })();
+  const toastMessages: Record<
+    string,
+    { type: 'success' | 'error'; message: string }
+  > = {
+    created: { type: 'success', message: 'Workshop criado com sucesso!' },
+    updated: { type: 'success', message: 'Workshop atualizado com sucesso!' },
+    finished: {
+      type: 'success',
+      message: 'Workshop finalizado com sucesso!',
+    },
+    deleted: { type: 'success', message: 'Workshop deletado com sucesso!' },
+  };
+
+  const searchParamsObject = resolvedSearchParams as Record<
+    string,
+    string | undefined
+  >;
+
+  const activeMessage = Object.entries(toastMessages).find(
+    ([key]) => searchParamsObject[key] === 'true'
+  );
 
   return (
     <section className="flex flex-col gap-4 md:gap-8">
-      {toastMessage && (
-        <ToastMessage message={toastMessage} show={!!toastMessage} />
+      {activeMessage && (
+        <ToastMessage
+          type={activeMessage[1].type}
+          message={activeMessage[1].message}
+          show={true}
+        />
       )}
       <HeaderBox
         title={title}

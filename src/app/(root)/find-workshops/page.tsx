@@ -1,5 +1,7 @@
 import WorkshopPageWrapper from '@/components/root/WorkshopPageWrapper';
+import { getCurrentUser } from '@/lib/actions/auth/authActions';
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Buscar Workshops',
@@ -8,6 +10,10 @@ export const metadata: Metadata = {
 const FindWorkshopsPage = async (props: {
   searchParams?: Promise<WorkshopSearchParams>;
 }) => {
+  const user = await getCurrentUser();
+  if (!user) redirect('/api/auth/sign-out');
+  if (user.role !== 'user') redirect('/workshops');
+
   return (
     <WorkshopPageWrapper
       {...props}

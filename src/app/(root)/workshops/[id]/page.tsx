@@ -22,9 +22,9 @@ const WorkshopInfoPage = async ({
   params: Promise<{ id: string }>;
   searchParams: Promise<{
     page?: string;
+    finishError?: string;
     deleteError?: string;
     enrolled?: string;
-    deleted?: string;
     enrollmentError?: string;
   }>;
 }) => {
@@ -36,10 +36,25 @@ const WorkshopInfoPage = async ({
 
   const id = resolvedParams.id;
   const currentPage = Number(resolvedSearchParams?.page) || 1;
-  const deleteError = resolvedSearchParams?.deleteError === 'true';
-  const enrolled = resolvedSearchParams?.enrolled === 'true';
-  const deleted = resolvedSearchParams?.deleted === 'true';
-  const enrollmentError = resolvedSearchParams?.enrollmentError === 'true';
+
+  const toastMessages: Record<
+    string,
+    { type: 'success' | 'error'; message: string }
+  > = {
+    finishError: { type: 'error', message: 'Erro ao finalizar workshop' },
+    deleteError: { type: 'error', message: 'Erro ao deletar workshop' },
+    enrolled: { type: 'success', message: 'Aluno inscrito com sucesso!' },
+    enrollmentError: { type: 'error', message: 'Erro ao inscrever aluno' },
+  };
+
+  const searchParamsObject = resolvedSearchParams as Record<
+    string,
+    string | undefined
+  >;
+
+  const activeMessage = Object.entries(toastMessages).find(
+    ([key]) => searchParamsObject[key] === 'true'
+  );
 
   const workshop = await fetchWorkshopById(id);
   if (!workshop) notFound();
@@ -48,19 +63,13 @@ const WorkshopInfoPage = async ({
 
   return (
     <div>
-      <ToastMessage
-        type={deleteError || enrollmentError ? 'error' : 'success'}
-        message={
-          deleteError
-            ? 'Erro ao deletar workshop'
-            : enrolled
-              ? 'Aluno matriculado com sucesso!'
-              : deleted
-                ? 'Matrícula deletada com sucesso!'
-                : 'Erro ao deletar matrícula'
-        }
-        show={deleteError || enrolled || deleted || enrollmentError}
-      />
+      {activeMessage && (
+        <ToastMessage
+          type={activeMessage[1].type}
+          message={activeMessage[1].message}
+          show={true}
+        />
+      )}
       <Breadcrumbs
         breadcrumbs={[
           { label: 'Workshops', href: '/workshops' },
