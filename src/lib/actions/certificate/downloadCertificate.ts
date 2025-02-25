@@ -2,14 +2,31 @@
 
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { getCurrentUser } from '../auth/authActions';
-import { promises as fs } from 'fs';
+import { readFile, readdir } from 'fs/promises';
 import { redirect } from 'next/navigation';
 import { eq } from 'drizzle-orm';
 import { db } from '@/db';
 import { workshopEnrollments, students, users, professors } from '@/db/schema';
 import { formatDate } from '@/lib/utils';
+import { join } from 'path';
+
+// Função para obter o caminho do diretório onde o template deve estar
+const getTemplatesPath = (): string => {
+  return join(process.cwd(), 'public');
+};
+
+const touched = { current: false };
+
+// "Toca" o diretório para forçar a Vercel a incluí-lo no build
+const touchTemplatesPath = async (): Promise<void> => {
+  if (touched.current) return;
+  await readdir(getTemplatesPath()); // Fire and forget
+  touched.current = true;
+};
 
 export async function downloadCertificate(certificate: Certificate) {
+  await touchTemplatesPath(); // Garante que o diretório foi acessado antes
+
   const user = await getCurrentUser();
   if (!user) redirect('/api/auth/sign-out');
 
@@ -28,9 +45,11 @@ export async function downloadCertificate(certificate: Certificate) {
     .where(eq(users.id, certificate.signedBy.id))
     .then((res) => res[0]);
 
-  const templateBytes = await fs.readFile(
-    process.cwd() + '/public/certificateModel.pdf'
-  );
+  // Caminho atualizado para o template do certificado
+  const templatePath = join(getTemplatesPath(), 'certificateModel.pdf');
+
+  // Lendo o arquivo PDF do template
+  const templateBytes = await readFile(templatePath);
   const pdfDoc = await PDFDocument.load(templateBytes);
 
   const page = pdfDoc.getPages()[0];
