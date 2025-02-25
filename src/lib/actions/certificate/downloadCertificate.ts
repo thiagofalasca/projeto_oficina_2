@@ -2,7 +2,7 @@
 
 import { PDFDocument, StandardFonts } from 'pdf-lib';
 import { getCurrentUser } from '../auth/authActions';
-import { readFile, readdir } from 'fs/promises';
+import * as fs from 'fs/promises';
 import { redirect } from 'next/navigation';
 import { eq } from 'drizzle-orm';
 import { db } from '@/db';
@@ -20,12 +20,12 @@ const touched = { current: false };
 // "Toca" o diretório para forçar a Vercel a incluí-lo no build
 const touchTemplatesPath = async (): Promise<void> => {
   if (touched.current) return;
-  await readdir(getTemplatesPath()); // Fire and forget
+  fs.readdir(getTemplatesPath()); // Fire and forget
   touched.current = true;
 };
 
 export async function downloadCertificate(certificate: Certificate) {
-  await touchTemplatesPath(); // Garante que o diretório foi acessado antes
+  touchTemplatesPath();
 
   const user = await getCurrentUser();
   if (!user) redirect('/api/auth/sign-out');
@@ -49,7 +49,7 @@ export async function downloadCertificate(certificate: Certificate) {
   const templatePath = join(getTemplatesPath(), 'certificateModel.pdf');
 
   // Lendo o arquivo PDF do template
-  const templateBytes = await readFile(templatePath);
+  const templateBytes = await fs.readFile(templatePath);
   const pdfDoc = await PDFDocument.load(templateBytes);
 
   const page = pdfDoc.getPages()[0];
