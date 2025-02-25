@@ -205,16 +205,19 @@ export const fetchAvailableWorkshopsPages = async (
   }
 };
 
-export const fetchWorkshopById = async (id: string): Promise<Workshop> => {
+export const fetchWorkshopById = async (
+  id: string
+): Promise<Workshop | null> => {
   let result: Workshop | null = null;
   try {
     [result] = await getWorkshopQuery().where(eq(workshops.id, id));
+    if (!result) return null;
   } catch (error) {
     console.error('Erro ao buscar workshop:', error);
     throw new Error('Erro ao buscar workshop.');
   }
 
-  const hasAccess = await validateWorkshopAccess(result?.id);
+  const hasAccess = await validateWorkshopAccess(result.id);
   if (!hasAccess) redirect('/workshops');
 
   return result;

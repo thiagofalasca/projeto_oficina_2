@@ -36,7 +36,7 @@ import {
 
 interface UserFormProps {
   role?: Role;
-  isSignUp?: Boolean;
+  isSignUp?: boolean;
   userToEdit?: User | StudentUser | ProfessorUser;
 }
 
@@ -70,7 +70,7 @@ const UserForm = ({
             ? {
                 ra: (userToEdit as StudentUser).ra,
                 course: (userToEdit as StudentUser).courseId,
-                period: (userToEdit as StudentUser).currentPeriod,
+                period: '',
               }
             : {}),
         }
@@ -108,7 +108,9 @@ const UserForm = ({
           ? addAdmin
           : role === 'superadmin'
             ? addSuperAdmin
-            : addStudent
+            : isSignUp
+              ? signUpAction
+              : addStudent
       )(data);
     }
   };

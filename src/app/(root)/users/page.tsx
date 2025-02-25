@@ -28,12 +28,24 @@ const UsersPage = async (props: {
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await fetchUsersPages(query);
 
-  const toastMessages: Record<string, { type: 'success' | 'error'; message: string }> = {
+  const toastMessages: Record<
+    string,
+    { type: 'success' | 'error'; message: string }
+  > = {
     created: { type: 'success', message: 'Usuário criado com sucesso!' },
     updated: { type: 'success', message: 'Usuário alterado com sucesso!' },
-    cannotDeleteYourselfError: { type: 'error', message: 'Você não pode deletar a si mesmo!' },
-    professorHasWorkshopsError: { type: 'error', message: 'Não é possível deletar um professor que contém workshops' },
-    userHasEnrollments: { type: 'error', message: 'Usuário está inscrito em workshops e não pode ser deletado' },
+    cannotDeleteYourselfError: {
+      type: 'error',
+      message: 'Você não pode deletar a si mesmo!',
+    },
+    professorHasWorkshopsError: {
+      type: 'error',
+      message: 'Não é possível deletar um professor que contém workshops',
+    },
+    userHasEnrollments: {
+      type: 'error',
+      message: 'Usuário está inscrito em workshops e não pode ser deletado',
+    },
     deleteError: { type: 'error', message: 'Erro ao deletar usuário' },
   };
 

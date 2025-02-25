@@ -52,7 +52,7 @@ export const addSuperAdmin = async (
 const createUser = async (
   data: UserFormData,
   role: Role,
-  isSignUp: Boolean
+  isSignUp: boolean
 ): Promise<ResultState<UserFormData>> => {
   if (role !== 'user') {
     const user = await getCurrentUser();
